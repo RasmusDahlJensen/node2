@@ -6,4 +6,6 @@ http
 		response.write("Hello World!");
 		response.end();
 	})
-	.listen(4000);
+	.listen(4000, () => {
+		console.log("http://localhost:4000");
+	});
