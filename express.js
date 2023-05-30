@@ -15,7 +15,7 @@ app.get("/contact", (req, res) => {
 	res.send("Contact");
 });
 
-app.get("/Products", (req, res) => {
+app.get("/products", (req, res) => {
 	res.send("Products");
 });
 
@@ -24,5 +24,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(port, () => {
-	console.log(`Example app listening on port http://localhost:${port}`);
+	console.log(`Express app http://localhost:${port}`);
 });
