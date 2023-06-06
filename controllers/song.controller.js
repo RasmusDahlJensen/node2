@@ -2,9 +2,10 @@ import db from "../Config/db.config.js";
 
 class SongController {
 	constructor() {
-		console.log("Song Controller kører");
+		console.log("Song Controller initialized");
 	}
 
+	// Method for listing songs
 	list = (req, res) => {
 		const sql =
 			"SELECT s.id, s.title, a.name FROM song s JOIN artist a ON s.artist_id = a.id";
@@ -17,11 +18,11 @@ class SongController {
 		});
 	};
 
+	// Method for retrieving song details
 	details = (req, res) => {
 		const id = req.params.id || 0;
 		const sql =
 			"SELECT s.title, s.content, a.name FROM song s JOIN artist a ON s.artist_id = a.id WHERE s.id = ?";
-
 		db.query(sql, [id], (err, result) => {
 			if (err) {
 				console.error(err);
