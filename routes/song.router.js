@@ -18,12 +18,25 @@ SongRouter.get("/song/:id([0-9]*)", (req, res) => {
 	controller.details(req, res);
 });
 
-
 // Endpoint for deleting an artist
 // Example: DELETE localhost:3000/artist/delete/1
 SongRouter.delete("/artist/delete/:id([0-9]*)", (req, res) => {
 	console.log("Handling artist deletion request (DELETE)");
 	controller.deleteArtist(req, res);
+});
+
+//Endpoint  for creating an artist
+//Send postman request with "name" as a key and the actual name as a value
+SongRouter.post("/artist/create", (req, res) => {
+	console.log("Handling artist creation request (POST)");
+	controller.createArtist(req, res);
+});
+
+// Endpoint for updating an artist
+//Send postman request with "name" as a key and the actual name as a value just like previous
+SongRouter.put("/artist/update/:id([0-9]*)", (req, res) => {
+	console.log("Handling artist update request (PUT)");
+	controller.updateArtist(req, res);
 });
 
 export default SongRouter;

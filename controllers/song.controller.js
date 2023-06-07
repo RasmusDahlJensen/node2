@@ -56,6 +56,45 @@ class SongController {
 			}
 		});
 	};
+
+	//Method for creating an artist
+	createArtist = (req, res) => {
+		const { name } = req.body;
+
+		if (!name) {
+			return res.status(400).json({ error: "Name is required." });
+		}
+
+		const sql = "INSERT INTO artist (name) VALUES (?)";
+		db.query(sql, [name], (err, result) => {
+			if (err) {
+				console.error(err);
+				res
+					.status(500)
+					.json({ error: "An error occurred while creating the artist." });
+			} else {
+				res.json({ message: "Artist created successfully." });
+			}
+		});
+	};
+
+	// Method for updating an artist
+	updateArtist = (req, res) => {
+		const id = req.params.id;
+		const { name } = req.body;
+
+		const sql = "UPDATE artist SET name = ? WHERE id = ?";
+		db.query(sql, [name, id], (err, result) => {
+			if (err) {
+				console.error(err);
+				res
+					.status(500)
+					.json({ error: "An error occurred while updating the artist." });
+			} else {
+				res.json({ message: "Artist updated successfully." });
+			}
+		});
+	};
 }
 
 export default SongController;
