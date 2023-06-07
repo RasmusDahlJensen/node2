@@ -8,6 +8,7 @@ dotenv.config();
 //Express
 const app = express();
 const port = process.env.PORT;
+app.use(express.json());
 
 app.get("/", (req, res) => {
 	res.send("Forside");
