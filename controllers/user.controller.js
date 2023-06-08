@@ -48,6 +48,27 @@ class UserController {
 			res.status(500).json({ error: error.message });
 		}
 	}
+
+	async update(req, res) {
+		const userId = req.params.userId;
+		const user = {
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			username: req.body.username,
+			password: req.body.password,
+			email: req.body.email,
+			birthdate: req.body.birthdate,
+			gender: req.body.gender,
+		};
+
+		try {
+			await this.userModel.update(userId, user);
+			res.json({ message: "User updated successfully." });
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ error: error.message });
+		}
+	}
 }
 
 export default UserController;

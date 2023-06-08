@@ -23,4 +23,10 @@ UserRouter.delete("/users/:userId", (req, res) => {
 	controller.delete(req, res);
 });
 
+// Endpoint for updating a user by user_id
+UserRouter.put("/users/:userId", (req, res) => {
+	console.log("Handling user update request (PUT)");
+	controller.update(req, res);
+});
+
 export default UserRouter;

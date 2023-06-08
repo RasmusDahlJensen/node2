@@ -63,6 +63,33 @@ class UserModel {
 			});
 		});
 	}
+
+	update(userId, user) {
+		return new Promise((resolve, reject) => {
+			const sql = `UPDATE ${this.tableName} SET first_name = ?, last_name = ?, username = ?, password = ?, email = ?, birthdate = ?, gender = ? WHERE user_id = ?`;
+			const values = [
+				user.first_name,
+				user.last_name,
+				user.username,
+				user.password,
+				user.email,
+				user.birthdate,
+				user.gender,
+				userId,
+			];
+
+			db.query(sql, values, (err, result) => {
+				if (err) {
+					console.error(err);
+					reject(new Error("An error occurred while updating the user."));
+				} else if (result.affectedRows === 0) {
+					reject(new Error("User not found."));
+				} else {
+					resolve();
+				}
+			});
+		});
+	}
 }
 
 export default UserModel;
