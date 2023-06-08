@@ -1,52 +1,53 @@
+// controllers/user.controller.js
+import UserModel from "../model/userModel.js";
+
 class UserController {
-	constructor(UserModel) {
-		this.UserModel = UserModel;
+	constructor() {
+		this.userModel = new UserModel();
 		console.log("User Controller initialized");
 	}
 
-	// Method for listing all users
-	list = async (req, res) => {
+	async list(req, res) {
 		try {
-			const users = await this.UserModel.findAll();
+			const users = await this.userModel.findAll();
 			res.json(users);
 		} catch (error) {
 			console.error(error);
-			res
-				.status(500)
-				.json({ error: "An error occurred while retrieving the user list." });
+			res.status(500).json({ error: error.message });
 		}
-	};
+	}
 
-	// Method for creating a user
-	create = async (req, res) => {
-		const {
-			first_name,
-			last_name,
-			username,
-			password,
-			email,
-			birthdate,
-			gender,
-		} = req.body;
+	async create(req, res) {
+		const user = {
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			username: req.body.username,
+			password: req.body.password,
+			email: req.body.email,
+			birthdate: req.body.birthdate,
+			gender: req.body.gender,
+		};
 
 		try {
-			await this.UserModel.create({
-				first_name,
-				last_name,
-				username,
-				password,
-				email,
-				birthdate,
-				gender,
-			});
-			res.json({ message: "User created successfully." });
+			const userId = await this.userModel.create(user);
+			res.json({ userId, message: "User created successfully." });
 		} catch (error) {
 			console.error(error);
-			res
-				.status(500)
-				.json({ error: "An error occurred while creating the user." });
+			res.status(500).json({ error: error.message });
 		}
-	};
+	}
+
+	async delete(req, res) {
+		const userId = req.params.userId;
+
+		try {
+			await this.userModel.delete(userId);
+			res.json({ message: "User deleted successfully." });
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ error: error.message });
+		}
+	}
 }
 
 export default UserController;

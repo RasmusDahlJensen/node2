@@ -17,4 +17,10 @@ UserRouter.post("/users/create", (req, res) => {
 	controller.create(req, res);
 });
 
+// Endpoint for deleting a user by user_id
+UserRouter.delete("/users/:userId", (req, res) => {
+	console.log("Handling user deletion request (DELETE)");
+	controller.delete(req, res);
+});
+
 export default UserRouter;
