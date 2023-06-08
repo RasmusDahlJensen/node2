@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import db from "./Config/db.config.js";
 import SongRouter from "./routes/song.router.js";
 import express from "express";
 import UserRouter from "./routes/user.router.js";

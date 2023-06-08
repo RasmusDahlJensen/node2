@@ -1,28 +1,24 @@
-import db from "../Config/db.config.js";
-
 class UserController {
-	constructor() {
+	constructor(UserModel) {
+		this.UserModel = UserModel;
 		console.log("User Controller initialized");
 	}
 
 	// Method for listing all users
-	list = (req, res) => {
-		const sql = "SELECT * FROM users";
-
-		db.query(sql, (err, result) => {
-			if (err) {
-				console.error(err);
-				res
-					.status(500)
-					.json({ error: "An error occurred while retrieving the user list." });
-			} else {
-				res.json(result);
-			}
-		});
+	list = async (req, res) => {
+		try {
+			const users = await this.UserModel.findAll();
+			res.json(users);
+		} catch (error) {
+			console.error(error);
+			res
+				.status(500)
+				.json({ error: "An error occurred while retrieving the user list." });
+		}
 	};
 
 	// Method for creating a user
-	create = (req, res) => {
+	create = async (req, res) => {
 		const {
 			first_name,
 			last_name,
@@ -33,28 +29,23 @@ class UserController {
 			gender,
 		} = req.body;
 
-		const sql =
-			"INSERT INTO users (first_name, last_name, username, password, email, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		const values = [
-			first_name,
-			last_name,
-			username,
-			password,
-			email,
-			birthdate,
-			gender,
-		];
-
-		db.query(sql, values, (err, result) => {
-			if (err) {
-				console.error(err);
-				res
-					.status(500)
-					.json({ error: "An error occurred while creating the user." });
-			} else {
-				res.json({ message: "User created successfully." });
-			}
-		});
+		try {
+			await this.UserModel.create({
+				first_name,
+				last_name,
+				username,
+				password,
+				email,
+				birthdate,
+				gender,
+			});
+			res.json({ message: "User created successfully." });
+		} catch (error) {
+			console.error(error);
+			res
+				.status(500)
+				.json({ error: "An error occurred while creating the user." });
+		}
 	};
 }
 

@@ -1,10 +1,10 @@
-import { sequelize, DataTypes, Model } from "../Config/sequelize.config.js";
+import { sequelize } from "../Config/sequelize.config.js";
+import { DataTypes } from "sequelize";
 
-class UserModel extends Model {}
-
-UserModel.init(
+const UserModel = sequelize.define(
+	"User",
 	{
-		id: {
+		user_id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
 			allowNull: false,
@@ -38,15 +38,8 @@ UserModel.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		is_active: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: false,
-		},
 	},
 	{
-		sequelize,
-		modelName: "User",
 		tableName: "users",
 	}
 );

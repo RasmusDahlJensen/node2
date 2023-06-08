@@ -1,7 +1,8 @@
 import express from "express";
 import UserController from "../controllers/user.controller.js";
+import UserModel from "../model/userModel.js";
 
-const controller = new UserController();
+const controller = new UserController(UserModel);
 const UserRouter = express.Router();
 
 // Endpoint for listing all users
