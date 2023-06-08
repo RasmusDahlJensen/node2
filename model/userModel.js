@@ -1,4 +1,3 @@
-// model/userModel.js
 import db from "../Config/db.config.js";
 
 class UserModel {
