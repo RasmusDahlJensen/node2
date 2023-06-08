@@ -69,6 +69,18 @@ class UserController {
 			res.status(500).json({ error: error.message });
 		}
 	}
+	// Get details of a user by user_id
+	async getUserDetails(req, res) {
+		const userId = req.params.userId;
+
+		try {
+			const user = await this.userModel.getUserDetails(userId);
+			res.json(user);
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ error: error.message });
+		}
+	}
 }
 
 export default UserController;

@@ -90,6 +90,24 @@ class UserModel {
 			});
 		});
 	}
+
+	getUserDetails(userId) {
+		return new Promise((resolve, reject) => {
+			const sql = `SELECT user_id, first_name, last_name, username, email, birthdate, gender FROM ${this.tableName} WHERE user_id = ?`;
+			const values = [userId];
+
+			db.query(sql, values, (err, result) => {
+				if (err) {
+					console.error(err);
+					reject(new Error("An error occurred while retrieving user details."));
+				} else if (result.length === 0) {
+					reject(new Error("User not found."));
+				} else {
+					resolve(result[0]);
+				}
+			});
+		});
+	}
 }
 
 export default UserModel;

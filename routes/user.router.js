@@ -29,4 +29,10 @@ UserRouter.put("/users/:userId", (req, res) => {
 	controller.update(req, res);
 });
 
+// Endpoint for getting details of a user by user_id
+UserRouter.get("/users/:userId", (req, res) => {
+	console.log("Handling user details request (GET)");
+	controller.getUserDetails(req, res);
+});
+
 export default UserRouter;
