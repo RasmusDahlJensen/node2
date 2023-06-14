@@ -114,10 +114,13 @@ class UserController {
 			}
 
 			// Generate a JWT token
-			const token = jwt.sign({ username: user.username }, "your_secret_key");
+			const token = jwt.sign(
+				{ userId: user.user_id, username: user.username },
+				"your_secret_key"
+			);
 
-			// Return the token and username in the response
-			return res.json({ token, username: user.username });
+			// Return the token, username, and user ID in the response
+			return res.json({ token, username: user.username, userId: user.user_id });
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ error: error.message });
