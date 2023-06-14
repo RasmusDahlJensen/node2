@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import SongRouter from "./routes/song.router.js";
 import express from "express";
-import UserRouter from "./routes/user.router.js";
+// import UserRouter from "./routes/user.router.js"; //Not sequelize
+import UserRouter from "./routes/user.router.sequelize.js"; //Sequelize files currently being used
 
 dotenv.config();
 

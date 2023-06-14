@@ -1,4 +1,4 @@
-import UserModel from "../model/userModel.js";
+import UserModel from "../model/userModelSequelize.js";
 
 class UserController {
 	constructor() {
