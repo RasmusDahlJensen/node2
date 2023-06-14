@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/sequelize.config.js";
+import bcrypt from "bcrypt";
 
 class UserModel extends Model {}
 
@@ -46,7 +47,18 @@ UserModel.init(
 		modelName: "User",
 		tableName: "users",
 		timestamps: false,
+		hooks: {
+			beforeCreate: async (user, options) => {
+				user.password = await createHash(user.password);
+			},
+		},
 	}
 );
+
+const createHash = async (string) => {
+	const salt = await bcrypt.genSalt(10);
+	const hashedString = await bcrypt.hash(string, salt);
+	return hashedString;
+};
 
 export default UserModel;
