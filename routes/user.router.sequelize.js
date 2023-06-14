@@ -1,5 +1,6 @@
 import express from "express";
 import UserController from "../controllers/user.sequelize.controller.js";
+import verifyToken from "../Middleware/verifytoken.js";
 
 const controller = new UserController();
 const UserRouter = express.Router();
@@ -35,10 +36,17 @@ UserRouter.put("/users/:userId([0-9]*)", (req, res) => {
 	controller.update(req, res);
 });
 
+//Login portion
 // Authentication route for login
 UserRouter.post("/auth/login", (req, res) => {
 	console.log("Handling login request (POST)");
 	controller.login(req, res);
+});
+
+// Protected route for login
+UserRouter.get("/protected", verifyToken, (req, res) => {
+	console.log("Handling proctected event (GET)");
+	controller.protected(req, res);
 });
 
 export default UserRouter;

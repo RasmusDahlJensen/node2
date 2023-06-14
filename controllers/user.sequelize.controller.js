@@ -1,6 +1,9 @@
 import UserModel from "../model/userModelSequelize.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class UserController {
 	constructor() {
@@ -97,6 +100,7 @@ class UserController {
 		}
 	}
 
+	//Login portion
 	async login(req, res) {
 		const { username, password } = req.body;
 
@@ -116,15 +120,23 @@ class UserController {
 			// Generate a JWT token
 			const token = jwt.sign(
 				{ userId: user.user_id, username: user.username },
-				"your_secret_key"
+				process.env.SECRET_KEY
 			);
 
 			// Return the token, username, and user ID in the response
-			return res.json({ token, username: user.username, userId: user.user_id });
+			return res.json({
+				accessToken: token,
+				username: user.username,
+				userId: user.user_id,
+			});
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ error: error.message });
 		}
+	}
+
+	async protected(req, res, next) {
+		console.log("Calling verify token");
 	}
 }
 
