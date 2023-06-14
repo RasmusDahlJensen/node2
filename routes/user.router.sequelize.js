@@ -35,4 +35,10 @@ UserRouter.put("/users/:userId([0-9]*)", (req, res) => {
 	controller.update(req, res);
 });
 
+// Authentication route for login
+UserRouter.post("/auth/login", (req, res) => {
+	console.log("Handling login request (POST)");
+	controller.login(req, res);
+});
+
 export default UserRouter;
