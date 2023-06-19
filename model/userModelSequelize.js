@@ -78,6 +78,7 @@ UserModel.init(
 	}
 );
 
+// Function to create a hash of the password
 const createHash = async (string) => {
 	const salt = await bcrypt.genSalt(10);
 	const hashedString = await bcrypt.hash(string, salt);

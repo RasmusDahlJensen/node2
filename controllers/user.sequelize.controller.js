@@ -5,11 +5,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+//  Controller class for managing user operations.
+
 class UserController {
+	//  Initializes a new instance of the UserController.
 	constructor() {
 		this.userModel = UserModel;
 		console.log("User Controller initialized");
 	}
+
+	//  Retrieves a list of users.
 
 	async list(req, res) {
 		try {
@@ -44,6 +49,7 @@ class UserController {
 		}
 	}
 
+	//  * Deletes a user.
 	async delete(req, res) {
 		const userId = req.params.userId;
 
@@ -61,6 +67,7 @@ class UserController {
 		}
 	}
 
+	// Updates a user.
 	async update(req, res) {
 		const userId = req.params.userId;
 		const user = {
@@ -87,6 +94,8 @@ class UserController {
 		}
 	}
 
+	// Retrieves details of a user.
+
 	async getUserDetails(req, res) {
 		const userId = req.params.userId;
 
@@ -102,7 +111,8 @@ class UserController {
 		}
 	}
 
-	//Login portion
+	//  Authenticates a user and generates a JWT token.
+
 	async login(req, res) {
 		const { username, password } = req.body;
 
@@ -137,6 +147,7 @@ class UserController {
 		}
 	}
 
+	//  Protected route handler.
 	async protected(req, res, next) {
 		console.log("Calling verify token");
 	}
