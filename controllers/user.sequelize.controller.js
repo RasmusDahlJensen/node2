@@ -28,8 +28,10 @@ class UserController {
 			username: req.body.username,
 			password: req.body.password,
 			email: req.body.email,
-			birthdate: req.body.birthdate,
-			gender: req.body.gender,
+			address: req.body.address,
+			phone_number: req.body.phone_number,
+			age: req.body.age,
+			is_active: req.body.is_active,
 		};
 
 		try {
