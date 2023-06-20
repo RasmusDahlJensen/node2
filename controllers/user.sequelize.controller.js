@@ -84,9 +84,6 @@ class UserController {
 			const updatedUser = await this.userModel.update(user, {
 				where: { user_id: userId },
 			});
-			if (updatedUser[0] === 0) {
-				throw new Error("User not found.");
-			}
 			res.json({ message: "User updated successfully." });
 		} catch (error) {
 			console.error(error);
