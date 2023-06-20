@@ -69,8 +69,8 @@ class UserController {
 
 	// Updates a user.
 	async update(req, res) {
-		const userId = req.params.userId;
 		const user = {
+			userId: req.params.userId,
 			first_name: req.body.first_name,
 			last_name: req.body.last_name,
 			username: req.body.username,
@@ -79,11 +79,12 @@ class UserController {
 			address: req.body.address,
 			phone_number: req.body.phone_number,
 			age: req.body.age,
+			is_active: req.body.is_active,
 		};
 
 		try {
 			const updatedUser = await this.userModel.update(user, {
-				where: { user_id: userId },
+				where: { user_id: user.userId },
 			});
 			res.json({ message: "User updated successfully." });
 		} catch (error) {
