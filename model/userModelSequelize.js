@@ -71,8 +71,9 @@ UserModel.init(
 			beforeCreate: async (user, options) => {
 				user.password = await createHash(user.password);
 			},
-			beforeUpdate: (user, options) => {
+			beforeUpdate: async (user, options) => {
 				user.updated_at = new Date();
+				user.password = await createHash(user.password);
 			},
 		},
 	}
